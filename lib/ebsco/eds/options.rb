@@ -234,10 +234,15 @@ module EBSCO
                 end
               end
 
+              _boolean_operator = 'AND'
+              if options.has_key? 'boolean_operator'
+                _boolean_operator = options['boolean_operator']
+              end
+
               if not _field_code == ''
-                @Queries =  [{:FieldCode => _field_code, :Term => value}]
+                @Queries =  [{:FieldCode => _field_code, :Term => value, :BooleanOperator => _boolean_operator}]
               else
-                @Queries =  [{:Term => value}]
+                @Queries =  [{:Term => value, :BooleanOperator => _boolean_operator}]
               end
               _has_query = true
 
