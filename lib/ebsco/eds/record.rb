@@ -884,15 +884,16 @@ module EBSCO
         if all_links
           hash['fulltext_link'] = { 'id' => database_id + '__' + safe_an, 'links' => all_links}
         end
-        # generate bibtex entry if it hasn't been done already
-        if @bibtex.key == 'unknown-a'
-          @bibtex = retrieve_bibtex
-        end
-        unless @bibtex.has_type?(:other)
-          hash['citation_apa'] = citation('apa').first.to_s
-          hash['citation_mla'] = citation('modern-language-association').first.to_s
-          hash['citation_chicago'] = citation('chicago-author-date').first.to_s
-        end
+
+        # # generate bibtex entry if it hasn't been done already
+        # if @bibtex.key == 'unknown-a'
+        #   @bibtex = retrieve_bibtex
+        # end
+        # unless @bibtex.has_type?(:other)
+        #   hash['citation_apa'] = citation('apa').first.to_s
+        #   hash['citation_mla'] = citation('modern-language-association').first.to_s
+        #   hash['citation_chicago'] = citation('chicago-author-date').first.to_s
+        # end
 
         # extra information typically required by detailed item views
         if type == 'verbose'
@@ -914,16 +915,16 @@ module EBSCO
         # solr response
         item_hash = to_hash 'verbose'
         solr_response =
-        {
-            'responseHeader' => {
-                'status' => 0
-            },
-            'response' => {
-                'numFound' => 1,
-                'start' => 0,
-                'docs' => [item_hash]
+            {
+                'responseHeader' => {
+                    'status' => 0
+                },
+                'response' => {
+                    'numFound' => 1,
+                    'start' => 0,
+                    'docs' => [item_hash]
+                }
             }
-        }
         # puts 'SOLR RESPONSE: ' + solr_response.inspect
         solr_response
       end
